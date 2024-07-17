@@ -17,6 +17,12 @@ class Main
 			puts Rainbow(File.read("image/coffe_list")).bright.red
 			 
 			puts Rainbow("   Добрый день! Хотите кофе?\n").green.bright
+
+			answer = gets
+			puts
+			puts Rainbow("   Вы выбрали " + answer).green.bright
+
+
 		end
 
 end
