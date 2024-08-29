@@ -1,25 +1,43 @@
 class Main
 	module ResponseAnswer
 
- 		def check_comand(comand)
+ 		def check_comand(answer)
 
  			# Menu.autorization_question if !Autorization.check
  			
- 			name_order = comand.split[1]
- 			quantity = comand.split[2]
- 			comand = comand.split[0]
+ 			comand = answer.split[0]
+ 			name_order = answer.split[1]
+ 			quantity = answer.split[2]
  			case comand
  			when "menu"
  				Menu.menu
  			
  			when "help"
  				Menu.help
- 			when "order", "1"
- 				if comand.split[1]
+ 			when "order"
+
+ 				if Order.check_name_order(name_order)
+ 					
+ 					if name_order && quantity
+ 						Order.order(name_order,quantity)
+ 					elsif name_order
+ 						Order.quantity(name_order)
+ 					else
+
+ 					end
+ 				else 
+ 					Menu.repeat 
+ 				end
+ 			when "1"
+ 				Menu.order_from_menu
+ 				puts "введите название напитка"
+
+ 			when "exit"
+ 				abort
 
 
  			end	
-
+ 			Menu.greetings
 
 
 

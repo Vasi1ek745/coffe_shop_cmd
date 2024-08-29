@@ -1,5 +1,5 @@
    menu ---------------------------- Основное меню
-   order <order name> <quantity> --- Заказ напитка и количество # Пример: order cappuccino 2
+   order <order name> <quantity> --- Заказ напитка и количество # order cappuccino 2
    clear --------------------------- Отчистить корзину
    autorization -------------------- Авторизоваться
 

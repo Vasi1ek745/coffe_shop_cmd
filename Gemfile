@@ -9,3 +9,4 @@ gem "pg"
 gem "pry-byebug"
 gem "byebug"
 gem 'rainbow'
+gem "rspec", "~> 3.13"
