@@ -9,9 +9,7 @@ class Main
  			name_order = answer.split[1]
  			quantity = answer.split[2]
  			case comand
- 			when "menu"
- 				Menu.menu
- 			
+
  			when "help"
  				Menu.help
  			when "order"
@@ -28,10 +26,7 @@ class Main
  				else 
  					Menu.repeat 
  				end
- 			when "1"
- 				Menu.order_from_menu
- 				puts "введите название напитка"
-
+ 
  			when "exit"
  				abort
 

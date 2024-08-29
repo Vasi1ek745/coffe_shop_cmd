@@ -23,14 +23,7 @@ class Main
 
 	  end
 
-	  def menu
-	  	Menu.header
-		puts Rainbow("Выберите цифру").bright.red
-		puts Rainbow(File.read(PATH + "/image/navigation")).green
-		comand = gets.chomp.downcase
-		ResponseAnswer.check_comand(comand)
 
-	  end
 	  def repeat
 	  	Menu.header
 	  	puts Rainbow("   Неправильное название заказа\n").red.bright
