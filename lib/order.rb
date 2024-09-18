@@ -1,32 +1,26 @@
-class Main
- 
- module Order
-
- 	
+ module Order 	
  	def order(name_order, quantity)
  		
- 		@cart ||= Cart.new
- 		@cart.order[name_order] = quantity 
+ 		
+ 		quantity||= 1
+ 		binding.pry
+ 		if @cart.already_added?(name_order)
+ 			@cart.order[name_order] += quantity.to_i  
+ 		else 
+ 			@cart.order[name_order] = quantity.to_i 
+ 		end
+
  		puts "Ваш заказ"
- 		@cart.order_all_with_money
+ 		@cart.order_all
  		puts "Еще что нибудь? y/n"
  		answer = gets.chomp
-
  		if answer.downcase == "да" || answer.downcase == "y"
  			Menu.greetings
  		else
+ 			puts "Ваши покупки"
+ 			puts @cart.order_all
  			puts "С вас столько то денег!"
  		end
- 	end
-
- 	def quantity(name)
- 		puts "Сколько штук хотите заказать?"
- 		comand = gets.chomp.to_i
- 		while 	comand < 0
- 			puts "введите число"
-	 		comand = gets.chomp.to_i
- 		end
- 		order(name, comand)
  	end
  	
  	def check_name_order(name_order)
@@ -48,17 +42,4 @@ class Main
  		menu_hash.has_key?(name_order.downcase)
 
  	end
-
-
-
-
-
- 	module_function(
- 		:order,
- 		:quantity,
- 		:check_name_order
- 		)
-
  end
-
-end
