@@ -5,18 +5,27 @@ class Menu
 		@step = 'greetings'
 		@continue = true
 	end
-	def chose_step
-		case @step
+	def chose_step(user_answer)
+
+		case user_answer
 		when 'greetings'
 			greetings
 		when 'help'
 			help
 		when 'cart'
-		
+
+		when 'wrong_comand'
+			wrong_comand
 			
 		end
 	end
-
+	def status(order_list, need_update_cart)
+		if need_update_cart
+	 		puts "Ваш заказ"
+	 		order_list.each {|k,v| p "#{k} - #{v}шт"}
+	 		puts "Еще что нибудь? y/n"
+	 	end
+	end
 
 
 	def greetings
@@ -28,14 +37,11 @@ class Menu
 	  end
 
 	  def help
-	  	Menu.header
+	  	header
        
 	  	puts Rainbow("\n   Список основных команд\n").bright.green
 		puts Rainbow(File.read(PATH + "/image/base_comand")).bright
-		comand = gets.chomp.downcase
-		binding.pry
-		self.check_comand(comand)
-	  end
+	 end
 
 	  def autorization_question
 	  	puts Rainbow("   Вы не авторизованы. Хотите авторизоваться? Сможете копить балы и мгновенно заказывать свою постоянную позицию").bright.red
@@ -52,11 +58,9 @@ class Menu
 
 
 	  def wrong_comand
-	  	Menu.header
+	  	header
 	  	puts Rainbow("   Неправильная команда, используйте help\n").red.bright
-	  	comand = gets.chomp.downcase
-		ResponseAnswer.check_comand(comand)
-
+	  	
 	  end
 	  def wrong_name
 	  	Menu.header
