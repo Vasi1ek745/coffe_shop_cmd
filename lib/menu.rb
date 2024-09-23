@@ -5,7 +5,7 @@ class Menu
 		@step = 'greetings'
 		@continue = true
 	end
-	def chose_step(user_answer)
+	def chose_step(user_answer, order_list)
 
 		case user_answer
 		when 'greetings'
@@ -13,18 +13,20 @@ class Menu
 		when 'help'
 			help
 		when 'cart'
-
+			status(order_list)
+		when 'clear'
+			clear_cart
 		when 'wrong_comand'
 			wrong_comand
-			
+		when 'wrong name order'
+			wrong_name	
 		end
 	end
-	def status(order_list, need_update_cart)
-		if need_update_cart
+	def status(order_list)
+			header
 	 		puts "Ваш заказ"
 	 		order_list.each {|k,v| p "#{k} - #{v}шт"}
-	 		puts "Еще что нибудь? y/n"
-	 	end
+	 		puts "Еще что нибудь? " , 'введите finish что бы завершить'
 	end
 
 
@@ -34,28 +36,24 @@ class Menu
 	        puts Rainbow("   Для заказа используйте order <название> <количество> # order espresso 2\n").green.bright
 	        puts Rainbow("   help для помощи\n").green.bright
 	      
-	  end
+    end
 
-	  def help
+	def help
 	  	header
        
 	  	puts Rainbow("\n   Список основных команд\n").bright.green
-		puts Rainbow(File.read(PATH + "/image/base_comand")).bright
+		puts Rainbow(File.read(PATH + "/../" + "/image/base_comand")).bright
 	 end
 
-	  def autorization_question
-	  	puts Rainbow("   Вы не авторизованы. Хотите авторизоваться? Сможете копить балы и мгновенно заказывать свою постоянную позицию").bright.red
-
-	  end
-
-	  def cart
-	  	puts "В корзине"
-	  	
- 		puts @cart.order_all
-		comand = gets.chomp.downcase
-		ResponseAnswer.check_comand(comand)
-	  end
-
+    def check_continue(answer)
+      	@continue = false if answer == 'finish'
+      
+    end
+    def finish(order_list, finish_sum, table_check)
+   		header
+    	puts table_check
+    	puts "Спасибо за покупки с вас #{finish_sum}р"
+    end
 
 	  def wrong_comand
 	  	header
@@ -63,16 +61,11 @@ class Menu
 	  	
 	  end
 	  def wrong_name
-	  	Menu.header
-	  	puts Rainbow("   Неправильнно введено название, попробуйте еще раз\n").red.bright
-	  	comand = gets.chomp.downcase
-		ResponseAnswer.check_comand(comand)
-
+	  	header
+	  	puts Rainbow("   Неправильно указано название или количество\n").red.bright
+	  
 	  end
-	  def order_from_menu
-	  	Menu.header
-
-	  end
+	
 	  def header
 		    system("clear") || system("cls")
 			puts Rainbow(File.read(PATH + "/../" + "/image/coffe_shop")).green.bright

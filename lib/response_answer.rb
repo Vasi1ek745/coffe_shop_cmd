@@ -8,7 +8,6 @@ class ResponseAnswer
 		end
 
  		def check_comand(answer)
- 			
  			comand = answer.split[0]
  			name_order = answer.split[1]
  			quantity = answer.split[2].to_i || 1
@@ -16,9 +15,11 @@ class ResponseAnswer
  			case comand
 
  			when "help"
- 				@need_update_cart = false
+ 				need_update_cart
+ 				@answer = 'help'
  				
  			when "order"
+
 				
 				if check_name(name_order) && check_quantity(quantity)	
 
@@ -26,17 +27,26 @@ class ResponseAnswer
  					@add_order['name_order'] = name_order 	
  					@add_order['quantity'] = quantity
  				else
- 					@answer['fail'] = 'Неправильно введено название или количество'
+ 					@answer = 'wrong name order'
 
  				end
+ 			when "finish"
+ 				@answer = 'finish'
  			when "cart"
- 				
- 			when "exit"
- 			
+ 				@answer = 'cart'
+ 			when "clear"
+ 				@need_update_cart = true	
+ 				@add_order = {}		
  			else 
  				@answer = 'wrong_comand'
  			end	
  			
+ 		end
+ 		def need_update
+ 			@need_update_cart = true
+ 		end
+ 		def no_need_update
+ 			@need_update_cart = false
  		end
 	 	def check_name(name_order)
  			menu_hash = {"espresso"=>100,"greentea"=>100,"americano"=>100,"blacktea"=>100,
